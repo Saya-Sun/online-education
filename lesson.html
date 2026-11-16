@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Lesson | Student Learning
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        .lesson-page {
+
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding:
+                35px 20px 60px;
+
+        }
+
+
+        .lesson-header {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .back-link {
+
+            display: inline-block;
+
+            margin-bottom: 15px;
+
+            color: #6d7688;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+        }
+
+
+        .back-link:hover {
+
+            color: #172033;
+
+        }
+
+
+        .lesson-number {
+
+            color: #687286;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: .08em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .lesson-header h1 {
+
+            margin:
+                7px 0 0;
+
+            color: #172033;
+
+            font-size:
+                clamp(30px, 5vw, 46px);
+
+            line-height: 1.15;
+
+        }
+
+
+        .lesson-description {
+
+            max-width: 700px;
+
+            margin-top: 12px;
+
+            color: #737d90;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+
+        }
+
+
+        /* =====================================================
+           VIDEO
+           ===================================================== */
+
+        .video-container {
+
+            overflow: hidden;
+
+            margin-bottom: 28px;
+
+            border-radius: 20px;
+
+            background: #101725;
+
+            box-shadow:
+                0 15px 40px
+                rgba(20,30,50,.12);
+
+        }
+
+
+        .video-container video {
+
+            display: block;
+
+            width: 100%;
+
+            max-height: 620px;
+
+            background: #101725;
+
+        }
+
+
+        .video-placeholder {
+
+            min-height: 400px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px;
+
+            color: #ffffff;
+
+            text-align: center;
+
+        }
+
+
+        .video-placeholder-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .video-placeholder strong {
+
+            font-size: 18px;
+
+        }
+
+
+        .video-placeholder span {
+
+            max-width: 500px;
+
+            margin-top: 8px;
+
+            color: #aeb7c7;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           LESSON CONTENT
+           ===================================================== */
+
+        .content-card {
+
+            padding: 28px;
+
+            border:
+                1px solid #e4e8ef;
+
+            border-radius: 18px;
+
+            background: #ffffff;
+
+        }
+
+
+        .content-card h2 {
+
+            margin:
+                0 0 10px;
+
+            font-size: 21px;
+
+            color: #172033;
+
+        }
+
+
+        .content-card p {
+
+            margin: 0;
+
+            color: #697386;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+           ===================================================== */
+
+        .lesson-navigation {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 25px;
+
+        }
+
+
+        .lesson-navigation a {
+
+            flex: 1;
+
+            padding: 15px;
+
+            border:
+                1px solid #e2e6ed;
+
+            border-radius: 13px;
+
+            background: #ffffff;
+
+            color: #172033;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .lesson-navigation a:last-child {
+
+            text-align: right;
+
+        }
+
+
+        .lesson-navigation a:hover {
+
+            background: #f7f8fb;
+
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        .error-message {
+
+            display: none;
+
+            padding: 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 11px;
+
+            background: #fff4f4;
+
+            color: #bc3535;
+
+            font-size: 13px;
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .lesson-page {
+
+                padding:
+                    25px 15px 45px;
+
+            }
+
+
+            .video-placeholder {
+
+                min-height: 280px;
+
+            }
+
+
+            .lesson-navigation {
+
+                flex-direction: column;
+
+            }
+
+
+            .lesson-navigation a:last-child {
+
+                text-align: left;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+
+<header class="topbar">
+
+    <div class="topbar-brand">
+        Student Learning
+    </div>
+
+
+    <button
+        type="button"
+        class="logout-button"
+        onclick="logout()"
+    >
+        Logout
+    </button>
+
+</header>
+
+
+
+<!-- ============================================================
+     PAGE
+     ============================================================ -->
+
+<main class="lesson-page">
+
+
+    <div
+        id="errorMessage"
+        class="error-message"
+    ></div>
+
+
+    <section class="lesson-header">
+
+        <a
+            id="backToCourse"
+            class="back-link"
+            href="#"
+        >
+            ← Back to Course
+        </a>
+
+
+        <div
+            id="lessonNumber"
+            class="lesson-number"
+        >
+            LESSON
+        </div>
+
+
+        <h1 id="lessonTitle">
+            Loading...
+        </h1>
+
+
+        <p
+            id="lessonDescription"
+            class="lesson-description"
+        >
+            Loading lesson...
+        </p>
+
+    </section>
+
+
+
+    <!-- ========================================================
+         VIDEO
+         ======================================================== -->
+
+    <section
+        id="videoContainer"
+        class="video-container"
+    >
+
+        <div class="video-placeholder">
+
+            <div class="video-placeholder-icon">
+                🎥
+            </div>
+
+            <strong>
+                Loading video...
+            </strong>
+
+            <span>
+                Please wait while the lesson is loaded.
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ========================================================
+         LESSON INFORMATION
+         ======================================================== -->
+
+    <section class="content-card">
+
+        <h2>
+            About this lesson
+        </h2>
+
+
+        <p id="lessonText">
+            —
+        </p>
+
+    </section>
+
+
+
+    <!-- ========================================================
+         NAVIGATION
+         ======================================================== -->
+
+    <nav
+        id="lessonNavigation"
+        class="lesson-navigation"
+    ></nav>
+
+
+</main>
+
+
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/auth.js"></script>
+
+
+<script>
+
+/* ============================================================
+   LESSON PAGE
+   Created by Tr. Sun
+   ============================================================ */
+
+
+let courseId = null;
+
+let lessonId = null;
+
+let lessonNumber = 0;
+
+
+
+/* ============================================================
+   URL PARAMETERS
+   ============================================================ */
+
+function loadParameters() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    courseId =
+        params.get('courseId');
+
+
+    lessonId =
+        params.get('lessonId');
+
+}
+
+
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+function showError(message) {
+
+    const element =
+        document.getElementById(
+            'errorMessage'
+        );
+
+
+    element.textContent =
+        message;
+
+
+    element.style.display =
+        'block';
+
+}
+
+
+
+/* ============================================================
+   HTML ESCAPE
+   ============================================================ */
+
+function escapeHtml(value) {
+
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+}
+
+
+
+/* ============================================================
+   LOAD LESSON
+   ============================================================ */
+
+async function loadLesson() {
+
+    const result =
+        await apiRequest({
+
+            action:
+                'getLesson',
+
+            token:
+                getAuthToken(),
+
+            courseId:
+                courseId,
+
+            lessonId:
+                lessonId
+
+        });
+
+
+    if (
+        !result ||
+        !result.success
+    ) {
+
+        throw new Error(
+            result?.message ||
+            'Unable to load lesson.'
+        );
+
+    }
+
+
+    const lesson =
+        result.lesson;
+
+
+    /*
+     * Course
+     */
+
+    document.getElementById(
+        'backToCourse'
+    ).href =
+        'course.html?courseId=' +
+        encodeURIComponent(
+            courseId
+        );
+
+
+    /*
+     * Lesson
+     */
+
+    lessonNumber =
+        Number(
+            lesson.lessonNumber
+        ) || 0;
+
+
+    document.getElementById(
+        'lessonNumber'
+    ).textContent =
+        'LESSON ' +
+        lessonNumber;
+
+
+    document.getElementById(
+        'lessonTitle'
+    ).textContent =
+        lesson.title ||
+        'Untitled Lesson';
+
+
+    document.getElementById(
+        'lessonDescription'
+    ).textContent =
+        lesson.description ||
+        '';
+
+
+    document.getElementById(
+        'lessonText'
+    ).textContent =
+        lesson.description ||
+        '';
+
+
+    /*
+     * Video
+     */
+
+    renderVideo(
+        lesson.videoUrl
+    );
+
+}
+
+
+
+/* ============================================================
+   VIDEO
+   ============================================================ */
+
+function renderVideo(videoUrl) {
+
+    const container =
+        document.getElementById(
+            'videoContainer'
+        );
+
+
+    if (!videoUrl) {
+
+        container.innerHTML = `
+
+            <div class="video-placeholder">
+
+                <div class="video-placeholder-icon">
+                    🎥
+                </div>
+
+                <strong>
+                    Video not available yet
+                </strong>
+
+                <span>
+                    The instructor has not added a
+                    video for this lesson yet.
+                </span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+     * Basic MP4 support.
+     *
+     * If the URL points to an MP4 file,
+     * display a native HTML5 video player.
+     */
+
+    const safeUrl =
+        String(videoUrl);
+
+
+    if (
+        /\.mp4(\?.*)?$/i.test(
+            safeUrl
+        )
+    ) {
+
+        container.innerHTML = `
+
+            <video
+                controls
+                controlsList="nodownload"
+                preload="metadata"
+            >
+
+                <source
+                    src="${escapeHtml(safeUrl)}"
+                    type="video/mp4"
+                >
+
+                Your browser does not support
+                HTML5 video.
+
+            </video>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+     * For other video providers, temporarily
+     * display a link.
+     *
+     * We can add YouTube/Vimeo/Drive
+     * embedding after deciding where your
+     * videos will be hosted.
+     */
+
+    container.innerHTML = `
+
+        <div class="video-placeholder">
+
+            <div class="video-placeholder-icon">
+                ▶
+            </div>
+
+            <strong>
+                Lesson Video
+            </strong>
+
+            <span>
+                Open the lesson video below.
+            </span>
+
+            <a
+                href="${escapeHtml(safeUrl)}"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="
+                    margin-top:18px;
+                    padding:11px 17px;
+                    border-radius:10px;
+                    background:#ffffff;
+                    color:#172033;
+                    text-decoration:none;
+                    font-size:13px;
+                    font-weight:700;
+                "
+            >
+                Open Video →
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* ============================================================
+   INITIALIZE
+   ============================================================ */
+
+async function initializeLesson() {
+
+    try {
+
+        const user =
+            await requireLogin();
+
+
+        if (!user) {
+
+            return;
+
+        }
+
+
+        if (
+            String(
+                user.role || ''
+            ).toUpperCase() !==
+            'STUDENT'
+        ) {
+
+            window.location.href =
+                'admin.html';
+
+            return;
+
+        }
+
+
+        loadParameters();
+
+
+        if (
+            !courseId ||
+            !lessonId
+        ) {
+
+            throw new Error(
+                'Invalid lesson link.'
+            );
+
+        }
+
+
+        await loadLesson();
+
+
+    } catch (error) {
+
+        console.error(
+            'Lesson error:',
+            error
+        );
+
+
+        showError(
+            error.message ||
+            'Unable to load lesson.'
+        );
+
+    }
+
+}
+
+
+initializeLesson();
+
+</script>
+
+
+</body>
+
+</html>

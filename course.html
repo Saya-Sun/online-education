@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Course | Student Learning</title>
+
+    <style>
+
+        /* ============================================================
+           COURSE PAGE
+           Created by Tr. Sun
+           ============================================================ */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #f5f7fb;
+            color: #1d2433;
+        }
+
+
+        /* ============================================================
+           TOP BAR
+           ============================================================ */
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            min-height: 64px;
+            padding: 0 28px;
+
+            background: #ffffff;
+            border-bottom: 1px solid #e7eaf0;
+
+            box-shadow:
+                0 2px 12px rgba(20, 30, 50, 0.04);
+        }
+
+
+        .topbar-brand {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1f2937;
+            letter-spacing: -0.2px;
+        }
+
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .dashboard-button,
+        .logout-button {
+            border: 0;
+            border-radius: 9px;
+
+            padding: 9px 15px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.15s ease,
+                background 0.15s ease;
+        }
+
+
+        .dashboard-button {
+            background: #eef2ff;
+            color: #4654b8;
+        }
+
+
+        .dashboard-button:hover {
+            background: #e4e9ff;
+            transform: translateY(-1px);
+        }
+
+
+        .logout-button {
+            background: #f1f3f6;
+            color: #505866;
+        }
+
+
+        .logout-button:hover {
+            background: #e7e9ed;
+            transform: translateY(-1px);
+        }
+
+
+        /* ============================================================
+           MAIN
+           ============================================================ */
+
+        .course-page {
+            width: min(1050px, calc(100% - 32px));
+
+            margin: 0 auto;
+
+            padding:
+                34px
+                0
+                60px;
+        }
+
+
+        /* ============================================================
+           ERROR
+           ============================================================ */
+
+        .error {
+            display: none;
+
+            margin-bottom: 20px;
+            padding: 15px 17px;
+
+            border-radius: 12px;
+
+            background: #fff2f2;
+            border: 1px solid #ffd6d6;
+
+            color: #b83232;
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* ============================================================
+           COURSE HEADER
+           ============================================================ */
+
+        .course-header {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 34px 36px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #f7f8ff 100%
+                );
+
+            border: 1px solid #e7eaf2;
+
+            box-shadow:
+                0 12px 35px rgba(30, 40, 70, 0.07);
+        }
+
+
+        .course-header::after {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            right: -80px;
+            top: -90px;
+
+            border-radius: 50%;
+
+            background: #eef1ff;
+
+            pointer-events: none;
+        }
+
+
+        .course-label {
+            position: relative;
+            z-index: 1;
+
+            margin: 0 0 8px;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            color: #6570c7;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+
+        .course-header h1 {
+            position: relative;
+            z-index: 1;
+
+            margin: 0 0 10px;
+
+            font-size: clamp(25px, 4vw, 36px);
+
+            line-height: 1.2;
+
+            color: #202637;
+
+            letter-spacing: -0.8px;
+        }
+
+
+        .course-description {
+            position: relative;
+            z-index: 1;
+
+            display: block;
+
+            max-width: 750px;
+
+            color: #687386;
+
+            font-size: 15px;
+            line-height: 1.65;
+        }
+
+
+        /* ============================================================
+           SUBSCRIPTION STATUS
+           ============================================================ */
+
+        .subscription-info {
+            position: relative;
+            z-index: 2;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-top: 20px;
+
+            padding: 9px 13px;
+
+            border-radius: 10px;
+
+            background: #f1f4f8;
+
+            color: #667085;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        .subscription-info.active {
+            background: #eaf8ef;
+            color: #25804a;
+        }
+
+
+        .subscription-info.warning {
+            background: #fff7e7;
+            color: #a66b08;
+        }
+
+
+        /* ============================================================
+           COURSE ACTION AREA
+           ============================================================ */
+
+        .course-action {
+            margin-top: 22px;
+
+            padding: 20px;
+
+            border-radius: 16px;
+
+            background: #ffffff;
+
+            border: 1px solid #e8ebf1;
+
+            box-shadow:
+                0 5px 18px rgba(30, 40, 60, 0.04);
+        }
+
+
+        .action-title {
+            margin: 0 0 5px;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            color: #303747;
+        }
+
+
+        .action-description {
+            margin: 0 0 15px;
+
+            color: #7a8393;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .credit-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #606a7b;
+
+            font-size: 13px;
+        }
+
+
+        .credit-balance {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 42px;
+
+            padding: 6px 9px;
+
+            border-radius: 8px;
+
+            background: #f0f3ff;
+
+            color: #4c59b8;
+
+            font-weight: 800;
+        }
+
+
+        .subscribe-button {
+            border: 0;
+
+            padding: 11px 19px;
+
+            border-radius: 10px;
+
+            background: #4f5ed1;
+            color: #ffffff;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 15px rgba(79, 94, 209, 0.22);
+
+            transition:
+                transform 0.15s ease,
+                background 0.15s ease;
+        }
+
+
+        .subscribe-button:hover {
+            background: #4352c1;
+            transform: translateY(-1px);
+        }
+
+
+        .subscribe-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+
+        /* ============================================================
+           LESSON SECTION
+           ============================================================ */
+
+        .lessons-title {
+            margin: 34px 0 15px;
+
+            font-size: 21px;
+            font-weight: 800;
+
+            color: #2b3343;
+        }
+
+
+        .lesson-list {
+            display: grid;
+            gap: 10px;
+        }
+
+
+        /* ============================================================
+           LESSON
+           ============================================================ */
+
+        .lesson {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 17px 18px;
+
+            text-decoration: none;
+
+            background: #ffffff;
+
+            border: 1px solid #e7eaf0;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 3px 12px rgba(30, 40, 60, 0.025);
+
+            transition:
+                transform 0.16s ease,
+                border-color 0.16s ease,
+                box-shadow 0.16s ease;
+        }
+
+
+        .lesson:hover {
+            transform: translateY(-2px);
+
+            border-color: #cfd5f5;
+
+            box-shadow:
+                0 8px 20px rgba(30, 40, 70, 0.07);
+        }
+
+
+        .lesson-number {
+            flex: 0 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            background: #f0f2ff;
+
+            color: #4e5bc0;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+
+        .lesson-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+
+        .lesson-content strong {
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #303746;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+
+        .lesson-content span {
+            display: block;
+
+            overflow: hidden;
+
+            color: #818a99;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+
+        .lesson-arrow {
+            flex: 0 0 auto;
+
+            color: #9aa2b0;
+
+            font-size: 20px;
+
+            transition:
+                transform 0.15s ease,
+                color 0.15s ease;
+        }
+
+
+        .lesson:hover .lesson-arrow {
+            color: #5361c9;
+            transform: translateX(3px);
+        }
+
+
+        /* ============================================================
+           MESSAGE
+           ============================================================ */
+
+        .message {
+            padding: 40px 25px;
+
+            border: 1px dashed #d6dbe4;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            color: #7c8595;
+
+            background: #fafbfc;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* ============================================================
+           LOADING
+           ============================================================ */
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 35px;
+
+            color: #7d8695;
+
+            font-size: 14px;
+        }
+
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid #e1e5ef;
+
+            border-top-color: #5664cb;
+
+            animation:
+                spin 0.75s linear infinite;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* ============================================================
+           MOBILE
+           ============================================================ */
+
+        @media (max-width: 650px) {
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+
+            .topbar-brand {
+                font-size: 16px;
+            }
+
+
+            .dashboard-button,
+            .logout-button {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+
+            .course-page {
+                width: min(
+                    100% - 24px,
+                    1050px
+                );
+
+                padding-top: 20px;
+            }
+
+
+            .course-header {
+                padding: 26px 22px;
+
+                border-radius: 18px;
+            }
+
+
+            .course-header h1 {
+                font-size: 26px;
+            }
+
+
+            .action-row {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+
+            .subscribe-button {
+                width: 100%;
+            }
+
+
+            .lesson {
+                padding: 14px;
+                gap: 11px;
+            }
+
+
+            .lesson-number {
+                width: 38px;
+                height: 38px;
+
+                border-radius: 10px;
+            }
+
+
+            .lesson-content span {
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            .topbar-right {
+                gap: 5px;
+            }
+
+
+            .dashboard-button {
+                display: none;
+            }
+
+
+            .course-header h1 {
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ============================================================
+         TOP BAR
+         ============================================================ -->
+
+    <header class="topbar">
+
+        <div class="topbar-brand">
+            Student Learning
+        </div>
+
+
+        <div class="topbar-right">
+
+            <button
+                type="button"
+                class="dashboard-button"
+                onclick="goDashboard()"
+            >
+                Dashboard
+            </button>
+
+
+            <button
+                type="button"
+                class="logout-button"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ============================================================
+         MAIN
+         ============================================================ -->
+
+    <main class="course-page">
+
+
+        <!-- ERROR -->
+
+        <div
+            id="error"
+            class="error"
+        ></div>
+
+
+
+        <!-- ========================================================
+             COURSE HEADER
+             ======================================================== -->
+
+        <section class="course-header">
+
+
+            <p class="course-label">
+                My Classroom
+            </p>
+
+
+            <h1 id="courseName">
+                Loading...
+            </h1>
+
+
+            <span
+                id="courseDescription"
+                class="course-description"
+            >
+                Loading course information...
+            </span>
+
+
+            <div
+                id="subscriptionInfo"
+                class="subscription-info"
+            >
+                Checking subscription...
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ========================================================
+             SUBSCRIPTION ACTION
+             ======================================================== -->
+
+        <section
+            id="courseAction"
+            class="course-action"
+            style="display:none;"
+        >
+
+            <h3 class="action-title">
+                Subscribe to this class
+            </h3>
+
+
+            <p class="action-description">
+                Use your available credits to access all lessons
+                in this class.
+            </p>
+
+
+            <div class="action-row">
+
+
+                <div class="credit-info">
+
+                    <span>
+                        Your credits:
+                    </span>
+
+
+                    <span
+                        id="creditBalance"
+                        class="credit-balance"
+                    >
+                        —
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="subscribeButton"
+                    class="subscribe-button"
+                    onclick="subscribeCourse()"
+                >
+                    Subscribe
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================================
+             LESSONS
+             ======================================================== -->
+
+        <h2
+            id="lessonsTitle"
+            class="lessons-title"
+            style="display:none;"
+        >
+            Lessons
+        </h2>
+
+
+        <section
+            id="lessonList"
+            class="lesson-list"
+        >
+
+            <div class="loading">
+
+                <div class="spinner"></div>
+
+                Loading course...
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ============================================================
+         EXISTING PROJECT SCRIPTS
+         ============================================================ -->
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+
+
+
+    <script>
+
+        /* ============================================================
+           COURSE PAGE
+           Created by Tr. Sun
+           ============================================================ */
+
+
+        let courseId = null;
+
+        let currentUser = null;
+
+        let course = null;
+
+        let subscription = null;
+
+
+
+        /* ============================================================
+           GET COURSE ID
+           ============================================================ */
+
+        function getCourseId() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            return params.get(
+                'courseId'
+            );
+
+        }
+
+
+
+        /* ============================================================
+           DASHBOARD
+           ============================================================ */
+
+        function goDashboard() {
+
+            window.location.href =
+                'dashboard.html';
+
+        }
+
+
+
+        /* ============================================================
+           ERROR
+           ============================================================ */
+
+        function showError(message) {
+
+            const element =
+                document.getElementById(
+                    'error'
+                );
+
+
+            element.textContent =
+                message;
+
+
+            element.style.display =
+                'block';
+
+        }
+
+
+
+        /* ============================================================
+           CLEAR ERROR
+           ============================================================ */
+
+        function clearError() {
+
+            const element =
+                document.getElementById(
+                    'error'
+                );
+
+
+            element.textContent = '';
+
+            element.style.display =
+                'none';
+
+        }
+
+
+
+        /* ============================================================
+           ESCAPE HTML
+           ============================================================ */
+
+        function escapeHtml(value) {
+
+            return String(
+                value || ''
+            )
+            .replace(
+                /&/g,
+                '&amp;'
+            )
+            .replace(
+                /</g,
+                '&lt;'
+            )
+            .replace(
+                />/g,
+                '&gt;'
+            )
+            .replace(
+                /"/g,
+                '&quot;'
+            )
+            .replace(
+                /'/g,
+                '&#039;'
+            );
+
+        }
+
+
+
+        /* ============================================================
+           FORMAT DATE
+           ============================================================ */
+
+        function formatDate(value) {
+
+            if (!value) {
+
+                return '—';
+
+            }
+
+
+            const date =
+                new Date(value);
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return '—';
+
+            }
+
+
+            return date.toLocaleDateString(
+                undefined,
+                {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                }
+            );
+
+        }
+
+
+
+        /* ============================================================
+           CHECK SUBSCRIPTION
+           ============================================================ */
+
+        function isSubscriptionActive(
+            value
+        ) {
+
+            if (!value) {
+
+                return false;
+
+            }
+
+
+            const status =
+                String(
+                    value.Status ||
+                    value.status ||
+                    ''
+                )
+                .trim()
+                .toUpperCase();
+
+
+            if (
+                status !== 'ACTIVE'
+            ) {
+
+                return false;
+
+            }
+
+
+            const endDate =
+                new Date(
+                    value.EndDate ||
+                    value.endDate
+                );
+
+
+            if (
+                Number.isNaN(
+                    endDate.getTime()
+                )
+            ) {
+
+                return false;
+
+            }
+
+
+            return endDate >= new Date();
+
+        }
+
+
+
+        /* ============================================================
+           GET CURRENT USER BALANCE
+           ============================================================ */
+
+        function getCreditBalance() {
+
+            if (!currentUser) {
+
+                return 0;
+
+            }
+
+
+            return Number(
+                currentUser.CreditBalance ??
+                currentUser.creditBalance ??
+                currentUser.credits ??
+                0
+            ) || 0;
+
+        }
+
+
+
+        /* ============================================================
+           SHOW ACTIVE SUBSCRIPTION
+           ============================================================ */
+
+        function renderSubscribedState() {
+
+            const info =
+                document.getElementById(
+                    'subscriptionInfo'
+                );
+
+
+            const action =
+                document.getElementById(
+                    'courseAction'
+                );
+
+
+            const title =
+                document.getElementById(
+                    'lessonsTitle'
+                );
+
+
+            action.style.display =
+                'none';
+
+
+            title.style.display =
+                'block';
+
+
+            info.className =
+                'subscription-info active';
+
+
+            const endDate =
+                subscription.EndDate ||
+                subscription.endDate;
+
+
+            info.textContent =
+                '✓ Active until ' +
+                formatDate(endDate);
+
+        }
+
+
+
+        /* ============================================================
+           SHOW NOT SUBSCRIBED STATE
+           ============================================================ */
+
+        function renderNotSubscribedState() {
+
+            const info =
+                document.getElementById(
+                    'subscriptionInfo'
+                );
+
+
+            const action =
+                document.getElementById(
+                    'courseAction'
+                );
+
+
+            const title =
+                document.getElementById(
+                    'lessonsTitle'
+                );
+
+
+            info.className =
+                'subscription-info warning';
+
+
+            info.textContent =
+                'Subscription required';
+
+
+            action.style.display =
+                'block';
+
+
+            title.style.display =
+                'none';
+
+
+            document.getElementById(
+                'creditBalance'
+            ).textContent =
+                getCreditBalance();
+
+        }
+
+
+
+        /* ============================================================
+           LOAD COURSE
+           ============================================================ */
+
+        async function loadCourse() {
+
+            const result =
+                await apiRequest({
+
+                    action:
+                        'getCourseLessons',
+
+                    token:
+                        getAuthToken(),
+
+                    courseId:
+                        courseId
+
+                });
+
+
+            if (
+                !result ||
+                !result.success
+            ) {
+
+                throw new Error(
+                    result?.message ||
+                    'Unable to load course.'
+                );
+
+            }
+
+
+            /* --------------------------------------------------------
+               COURSE INFORMATION
+               -------------------------------------------------------- */
+
+            course =
+                result.course || null;
+
+
+            if (!course) {
+
+                throw new Error(
+                    'Course information was not returned.'
+                );
+
+            }
+
+
+            document.getElementById(
+                'courseName'
+            ).textContent =
+                course.courseName ||
+                'Course';
+
+
+            document.getElementById(
+                'courseDescription'
+            ).textContent =
+                course.description ||
+                '';
+
+
+            /* --------------------------------------------------------
+               SUBSCRIPTION
+               -------------------------------------------------------- */
+
+            subscription =
+                result.subscription ||
+                null;
+
+
+            if (
+                isSubscriptionActive(
+                    subscription
+                )
+            ) {
+
+                renderSubscribedState();
+
+
+                renderLessons(
+                    result.lessons || []
+                );
+
+            } else {
+
+                renderNotSubscribedState();
+
+
+                renderSubscriptionMessage();
+
+            }
+
+        }
+
+
+
+        /* ============================================================
+           SUBSCRIPTION MESSAGE
+           ============================================================ */
+
+        function renderSubscriptionMessage() {
+
+            const container =
+                document.getElementById(
+                    'lessonList'
+                );
+
+
+            container.innerHTML = `
+
+                <div class="message">
+
+                    <strong>
+                        Subscribe to access the lessons.
+                    </strong>
+
+                    <br>
+
+                    Use your credits above to
+                    subscribe to this class.
+
+                </div>
+
+            `;
+
+        }
+
+
+
+        /* ============================================================
+           RENDER LESSONS
+           ============================================================ */
+
+        function renderLessons(
+            lessons
+        ) {
+
+            const container =
+                document.getElementById(
+                    'lessonList'
+                );
+
+
+            if (
+                !Array.isArray(
+                    lessons
+                ) ||
+                lessons.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="message">
+
+                        <strong>
+                            No lessons available yet.
+                        </strong>
+
+                        <br>
+
+                        Lessons will appear here
+                        when they are published.
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                lessons
+                    .map(
+                        function(lesson) {
+
+                            return `
+
+                                <a
+                                    class="lesson"
+                                    href="lesson.html?courseId=${
+                                        encodeURIComponent(
+                                            courseId
+                                        )
+                                    }&lessonId=${
+                                        encodeURIComponent(
+                                            lesson.lessonId
+                                        )
+                                    }"
+                                >
+
+                                    <div
+                                        class="lesson-number"
+                                    >
+                                        ${
+                                            escapeHtml(
+                                                lesson.lessonNumber
+                                            )
+                                        }
+                                    </div>
+
+
+                                    <div
+                                        class="lesson-content"
+                                    >
+
+                                        <strong>
+                                            ${
+                                                escapeHtml(
+                                                    lesson.title
+                                                )
+                                            }
+                                        </strong>
+
+
+                                        <span>
+                                            ${
+                                                escapeHtml(
+                                                    lesson.description
+                                                )
+                                            }
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="lesson-arrow"
+                                    >
+                                        →
+                                    </div>
+
+                                </a>
+
+                            `;
+
+                        }
+                    )
+                    .join('');
+
+        }
+
+
+
+        /* ============================================================
+           SUBSCRIBE
+           ============================================================ */
+
+        async function subscribeCourse() {
+
+            clearError();
+
+
+            const button =
+                document.getElementById(
+                    'subscribeButton'
+                );
+
+
+            const balance =
+                getCreditBalance();
+
+
+            /* --------------------------------------------------------
+               Basic validation
+               -------------------------------------------------------- */
+
+            if (!courseId) {
+
+                showError(
+                    'No course was selected.'
+                );
+
+                return;
+
+            }
+
+
+            /* --------------------------------------------------------
+               Find course price
+               -------------------------------------------------------- */
+
+            const creditsRequired =
+                Number(
+                    course?.credits ??
+                    course?.Credits ??
+                    course?.creditCost ??
+                    course?.CreditCost ??
+                    course?.price ??
+                    course?.Price ??
+                    0
+                );
+
+
+            if (
+                !Number.isFinite(
+                    creditsRequired
+                ) ||
+                creditsRequired <= 0
+            ) {
+
+                showError(
+                    'This course does not have a valid subscription credit cost.'
+                );
+
+                return;
+
+            }
+
+
+            /* --------------------------------------------------------
+               Check balance
+               -------------------------------------------------------- */
+
+            if (
+                balance <
+                creditsRequired
+            ) {
+
+                showError(
+                    `You need ${creditsRequired} credits, but you only have ${balance}.`
+                );
+
+                return;
+
+            }
+
+
+            /* --------------------------------------------------------
+               Confirmation
+               -------------------------------------------------------- */
+
+            const confirmed =
+                window.confirm(
+                    `Subscribe to "${course.courseName}" for ${creditsRequired} credits?`
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            /* --------------------------------------------------------
+               Disable button
+               -------------------------------------------------------- */
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                'Subscribing...';
+
+
+            try {
+
+                const result =
+                    await apiRequest({
+
+                        action:
+                            'subscribeToCourse',
+
+                        token:
+                            getAuthToken(),
+
+                        courseId:
+                            courseId
+
+                    });
+
+
+                if (
+                    !result ||
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result?.message ||
+                        'Unable to subscribe to this course.'
+                    );
+
+                }
+
+
+                /* ----------------------------------------------------
+                   Success
+                   ---------------------------------------------------- */
+
+                alert(
+                    result.message ||
+                    'Subscription successful.'
+                );
+
+
+                /* ----------------------------------------------------
+                   Reload course
+                   ---------------------------------------------------- */
+
+                await refreshUser();
+
+
+                await loadCourse();
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showError(
+                    error.message ||
+                    'Unable to subscribe to this course.'
+                );
+
+            } finally {
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    'Subscribe';
+
+            }
+
+        }
+
+
+
+        /* ============================================================
+           REFRESH USER
+           ============================================================ */
+
+        async function refreshUser() {
+
+            /*
+             * Some versions of auth.js expose getCurrentUser().
+             * If it exists, use it.
+             */
+
+            if (
+                typeof getCurrentUser ===
+                'function'
+            ) {
+
+                try {
+
+                    const user =
+                        await getCurrentUser();
+
+
+                    if (user) {
+
+                        currentUser =
+                            user;
+
+                        return;
+
+                    }
+
+                } catch (error) {
+
+                    console.warn(
+                        'Unable to refresh user:',
+                        error
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * If requireLogin() is available,
+             * use it as fallback.
+             */
+
+            if (
+                typeof requireLogin ===
+                'function'
+            ) {
+
+                try {
+
+                    const user =
+                        await requireLogin();
+
+
+                    if (user) {
+
+                        currentUser =
+                            user;
+
+                    }
+
+                } catch (error) {
+
+                    console.warn(
+                        'Unable to refresh login:',
+                        error
+                    );
+
+                }
+
+            }
+
+        }
+
+
+
+        /* ============================================================
+           INITIALIZE
+           ============================================================ */
+
+        async function initializeCourse() {
+
+            try {
+
+                /* ----------------------------------------------------
+                   Require login
+                   ---------------------------------------------------- */
+
+                if (
+                    typeof requireLogin !==
+                    'function'
+                ) {
+
+                    throw new Error(
+                        'Authentication system is unavailable.'
+                    );
+
+                }
+
+
+                currentUser =
+                    await requireLogin();
+
+
+                if (!currentUser) {
+
+                    return;
+
+                }
+
+
+                /* ----------------------------------------------------
+                   Student only
+                   ---------------------------------------------------- */
+
+                if (
+                    String(
+                        currentUser.role ||
+                        ''
+                    )
+                    .toUpperCase() !==
+                    'STUDENT'
+                ) {
+
+                    window.location.href =
+                        'admin.html';
+
+                    return;
+
+                }
+
+
+                /* ----------------------------------------------------
+                   Course ID
+                   ---------------------------------------------------- */
+
+                courseId =
+                    getCourseId();
+
+
+                if (!courseId) {
+
+                    throw new Error(
+                        'No course was selected.'
+                    );
+
+                }
+
+
+                /* ----------------------------------------------------
+                   Load course
+                   ---------------------------------------------------- */
+
+                await loadCourse();
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showError(
+                    error.message ||
+                    'Unable to load course.'
+                );
+
+            }
+
+        }
+
+
+
+        /* ============================================================
+           START
+           ============================================================ */
+
+        initializeCourse();
+
+    </script>
+
+
+</body>
+
+</html>

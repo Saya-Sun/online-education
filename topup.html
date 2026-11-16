@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Top Up Credits | Student Learning</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <header class="topbar">
+
+        <div class="topbar-brand">
+            Student Learning
+        </div>
+
+        <button class="logout-button" id="logoutButton" type="button">
+            Logout
+        </button>
+
+    </header>
+
+
+    <main class="dashboard">
+
+        <section class="welcome">
+
+            <p>Account</p>
+
+            <h1>Top Up Credits</h1>
+
+        </section>
+
+
+        <!-- CURRENT BALANCE -->
+
+        <section class="balance-card">
+
+            <span>
+                Current Credit Balance
+            </span>
+
+            <strong id="currentBalance">
+                0
+            </strong>
+
+            <small>
+                Credits
+            </small>
+
+        </section>
+
+
+        <!-- PAYMENT FORM -->
+
+        <section class="dashboard-card topup-card">
+
+            <h2>
+                Submit Payment
+            </h2>
+
+            <p class="section-description">
+                Enter the amount you paid and upload your
+                payment receipt.
+            </p>
+
+
+            <!-- AMOUNT -->
+
+            <div class="form-group">
+
+                <label for="amount">
+                    Amount Paid
+                </label>
+
+                <div class="amount-input">
+
+                    <input id="amount" type="number" min="1000" step="1" inputmode="numeric" placeholder="Enter amount"
+                        autocomplete="off">
+
+                    <span>MMK</span>
+
+                </div>
+
+                <small>
+                    Enter the exact amount shown on your receipt.
+                </small>
+
+            </div>
+
+
+            <!-- PAYMENT METHOD -->
+
+            <div class="form-group">
+
+                <label for="paymentMethod">
+                    Payment Method
+                </label>
+
+                <select id="paymentMethod">
+
+                    <option value="">
+                        Select payment method
+                    </option>
+
+                    <option value="KBZ Pay">
+                        KBZ Pay
+                    </option>
+
+                    <option value="Wave Money">
+                        Wave Money
+                    </option>
+
+                    <option value="Bank Transfer">
+                        Bank Transfer
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PAYMENT INSTRUCTIONS -->
+
+            <div class="payment-instructions">
+
+                <h3>
+                    Payment Information
+                </h3>
+
+                <p>
+                    Please make your payment using one of
+                    the available payment methods.
+                </p>
+
+                <p>
+                    After payment, upload the screenshot
+                    showing the transaction.
+                </p>
+
+            </div>
+
+
+            <!-- RECEIPT -->
+
+            <div class="form-group">
+
+                <label for="receipt">
+                    Payment Screenshot
+                </label>
+
+                <input id="receipt" type="file" accept="image/jpeg,image/png,image/webp">
+
+                <small>
+                    JPG, PNG or WebP — maximum 5 MB
+                </small>
+
+            </div>
+
+
+            <!-- PREVIEW -->
+
+            <div id="preview" class="receipt-preview"></div>
+
+
+            <!-- SUBMIT -->
+
+            <button id="submitButton" class="primary-button" type="button" disabled>
+                Submit Payment
+            </button>
+
+
+            <div id="message" class="message"></div>
+
+        </section>
+
+
+        <div class="page-navigation">
+
+            <a href="dashboard.html">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- SHARED PROJECT FILES -->
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+
+
+    <script>
+
+        /* ============================================================
+           TOP UP PAGE
+           ============================================================ */
+
+        let currentUser = null;
+
+
+        /* ============================================================
+           ELEMENTS
+           ============================================================ */
+
+        const amountInput =
+            document.getElementById('amount');
+
+        const paymentMethod =
+            document.getElementById('paymentMethod');
+
+        const receiptInput =
+            document.getElementById('receipt');
+
+        const preview =
+            document.getElementById('preview');
+
+        const submitButton =
+            document.getElementById('submitButton');
+
+        const message =
+            document.getElementById('message');
+
+        const currentBalance =
+            document.getElementById('currentBalance');
+
+        const logoutButton =
+            document.getElementById('logoutButton');
+
+
+        /* ============================================================
+           MESSAGE
+           ============================================================ */
+
+        function showMessage(
+            text,
+            success = false
+        ) {
+
+            message.className =
+                success
+                    ? 'message success-message'
+                    : 'message';
+
+            message.textContent =
+                text;
+
+        }
+
+
+        /* ============================================================
+           VALIDATE FORM
+           ============================================================ */
+
+        function validateForm() {
+
+            const amount =
+                Number(
+                    amountInput.value
+                );
+
+            const method =
+                paymentMethod.value;
+
+            const file =
+                receiptInput.files[0];
+
+
+            submitButton.disabled =
+                !Number.isFinite(amount) ||
+                amount < 1000 ||
+                !method ||
+                !file;
+
+        }
+
+
+        /* ============================================================
+           INPUT EVENTS
+           ============================================================ */
+
+        amountInput.addEventListener(
+            'input',
+            function () {
+
+                showMessage('');
+
+                validateForm();
+
+            }
+        );
+
+
+        paymentMethod.addEventListener(
+            'change',
+            function () {
+
+                showMessage('');
+
+                validateForm();
+
+            }
+        );
+
+
+        /* ============================================================
+           RECEIPT
+           ============================================================ */
+
+        receiptInput.addEventListener(
+            'change',
+            function () {
+
+                const file =
+                    receiptInput.files[0];
+
+
+                preview.innerHTML = '';
+
+                showMessage('');
+
+
+                if (!file) {
+
+                    validateForm();
+
+                    return;
+
+                }
+
+
+                const allowedTypes = [
+
+                    'image/jpeg',
+
+                    'image/png',
+
+                    'image/webp'
+
+                ];
+
+
+                if (
+                    !allowedTypes.includes(
+                        file.type
+                    )
+                ) {
+
+                    receiptInput.value = '';
+
+                    showMessage(
+                        'Please upload a JPG, PNG or WebP image.'
+                    );
+
+                    validateForm();
+
+                    return;
+
+                }
+
+
+                const maxSize =
+                    5 * 1024 * 1024;
+
+
+                if (
+                    file.size > maxSize
+                ) {
+
+                    receiptInput.value = '';
+
+                    showMessage(
+                        'Receipt must be smaller than 5 MB.'
+                    );
+
+                    validateForm();
+
+                    return;
+
+                }
+
+
+                const image =
+                    document.createElement(
+                        'img'
+                    );
+
+
+                image.src =
+                    URL.createObjectURL(
+                        file
+                    );
+
+
+                image.alt =
+                    'Payment receipt preview';
+
+
+                preview.appendChild(
+                    image
+                );
+
+
+                validateForm();
+
+            }
+        );
+
+
+        /* ============================================================
+           FILE → BASE64
+           ============================================================ */
+
+        function fileToBase64(file) {
+
+            return new Promise(
+                function (resolve, reject) {
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function () {
+
+                            resolve(
+                                reader.result
+                            );
+
+                        };
+
+
+                    reader.onerror =
+                        function () {
+
+                            reject(
+                                new Error(
+                                    'Unable to read receipt.'
+                                )
+                            );
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* ============================================================
+           SUBMIT PAYMENT
+           ============================================================ */
+
+        submitButton.addEventListener(
+            'click',
+            async function () {
+
+                const amount =
+                    Number(
+                        amountInput.value
+                    );
+
+                const method =
+                    paymentMethod.value;
+
+                const file =
+                    receiptInput.files[0];
+
+
+                /* Validate amount */
+
+                if (
+                    !Number.isFinite(amount) ||
+                    amount < 1000
+                ) {
+
+                    showMessage(
+                        'Please enter a valid amount.'
+                    );
+
+                    return;
+
+                }
+
+
+                /* Validate method */
+
+                if (!method) {
+
+                    showMessage(
+                        'Please select a payment method.'
+                    );
+
+                    return;
+
+                }
+
+
+                /* Validate receipt */
+
+                if (!file) {
+
+                    showMessage(
+                        'Please upload your payment receipt.'
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Prevent multiple submissions.
+                 */
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.textContent =
+                    'Uploading...';
+
+
+                try {
+
+                    /*
+                     * Convert image to Base64.
+                     */
+
+                    const base64 =
+                        await fileToBase64(
+                            file
+                        );
+
+
+                    submitButton.textContent =
+                        'Submitting...';
+
+
+                    /*
+                     * Send ONLY these values.
+                     *
+                     * No package ID.
+                     * No credit amount.
+                     *
+                     * Credits are decided by admin later.
+                     */
+
+                    const result =
+                        await apiRequest({
+
+                            action:
+                                'submitPayment',
+
+                            token:
+                                getAuthToken(),
+
+                            amount:
+                                amount,
+
+                            paymentMethod:
+                                method,
+
+                            receiptBase64:
+                                base64,
+
+                            receiptName:
+                                file.name
+
+                        });
+
+
+                    console.log(
+                        'submitPayment result:',
+                        result
+                    );
+
+
+                    if (
+                        !result ||
+                        !result.success
+                    ) {
+
+                        throw new Error(
+                            result &&
+                                result.message
+                                ? result.message
+                                : 'Payment submission failed.'
+                        );
+
+                    }
+
+
+                    /*
+                     * Success
+                     */
+
+                    showMessage(
+                        'Payment submitted successfully. Payment ID: ' +
+                        result.paymentId +
+                        '. Waiting for administrator approval.',
+                        true
+                    );
+
+
+                    /*
+                     * Reset form.
+                     */
+
+                    amountInput.value = '';
+
+                    paymentMethod.value = '';
+
+                    receiptInput.value = '';
+
+                    preview.innerHTML = '';
+
+
+                    submitButton.textContent =
+                        'Payment Submitted';
+
+
+                } catch (error) {
+
+                    console.error(
+                        'Payment submission error:',
+                        error
+                    );
+
+
+                    showMessage(
+                        error.message ||
+                        'Unable to submit payment.'
+                    );
+
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        'Submit Payment';
+
+                }
+
+            }
+        );
+
+
+        /* ============================================================
+           LOGOUT
+           ============================================================ */
+
+        logoutButton.addEventListener(
+            'click',
+            async function () {
+
+                try {
+
+                    await logout();
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    window.location.href =
+                        'login.html';
+
+                }
+
+            }
+        );
+
+
+        /* ============================================================
+           INITIALIZE
+           ============================================================ */
+
+        async function initialize() {
+
+            try {
+
+                /*
+                 * requireLogin() should return
+                 * the authenticated user.
+                 */
+
+                currentUser =
+                    await requireLogin();
+
+
+                if (!currentUser) {
+
+                    return;
+
+                }
+
+
+                /*
+                 * Students only.
+                 */
+
+                if (
+                    String(
+                        currentUser.role
+                    ).toUpperCase() !==
+                    'STUDENT'
+                ) {
+
+                    window.location.href =
+                        'admin.html';
+
+                    return;
+
+                }
+
+
+                /*
+                 * Display current balance.
+                 */
+
+                currentBalance.textContent =
+                    Number(
+                        currentUser.creditBalance || 0
+                    ).toLocaleString();
+
+
+                validateForm();
+
+
+            } catch (error) {
+
+                console.error(
+                    'Top-up initialization error:',
+                    error
+                );
+
+            }
+
+        }
+
+
+        initialize();
+
+    </script>
+
+</body>
+
+</html>

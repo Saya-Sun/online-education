@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Student Learning | Online Learning Platform
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           HOME PAGE
+           Created by Tr. Sun
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+
+            background: #f7f8fb;
+
+            color: #172033;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+           ===================================================== */
+
+        .home-nav {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            border-bottom:
+                1px solid #e8ebf1;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.94
+                );
+
+            backdrop-filter:
+                blur(12px);
+        }
+
+
+        .nav-inner {
+
+            max-width: 1200px;
+
+            min-height: 72px;
+
+            margin: auto;
+
+            padding: 0 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+        }
+
+
+        /* =====================================================
+           BRAND
+           ===================================================== */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            text-decoration: none;
+
+            color: inherit;
+        }
+
+
+        .brand-mark {
+
+            width: 42px;
+
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #172033;
+
+            color: #ffffff;
+
+            font-size: 18px;
+
+            font-weight: 700;
+        }
+
+
+        .brand-text strong {
+
+            display: block;
+
+            font-size: 16px;
+        }
+
+
+        .brand-text span {
+
+            display: block;
+
+            margin-top: 2px;
+
+            font-size: 11px;
+
+            color: #8991a2;
+        }
+
+
+        /* =====================================================
+           NAV LINKS
+           ===================================================== */
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+        }
+
+
+        .nav-links a {
+
+            color: #5f687b;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #172033;
+        }
+
+
+        /* =====================================================
+           NAV BUTTONS
+           ===================================================== */
+
+        .nav-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .nav-login {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                10px 17px;
+
+            border:
+                1px solid #dce1ea;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #172033;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            cursor: pointer;
+        }
+
+
+        .nav-login:hover {
+
+            background: #f5f6f8;
+        }
+
+
+        .nav-register {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                11px 18px;
+
+            border-radius: 10px;
+
+            border: 0;
+
+            background: #172033;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            cursor: pointer;
+        }
+
+
+        .nav-register:hover {
+
+            opacity: .9;
+        }
+
+
+        /* =====================================================
+           HERO
+           ===================================================== */
+
+        .hero {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding:
+                90px 20px 80px;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.15fr)
+                minmax(340px, 0.85fr);
+
+            gap: 60px;
+
+            align-items: center;
+        }
+
+
+        .hero-content {
+
+            max-width: 680px;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                8px 13px;
+
+            margin-bottom: 20px;
+
+            border:
+                1px solid #e1e6ef;
+
+            border-radius: 999px;
+
+            background: #ffffff;
+
+            color: #687286;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .hero-badge::before {
+
+            content: "";
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #20a36a;
+        }
+
+
+        .hero h1 {
+
+            margin: 0;
+
+            max-width: 700px;
+
+            font-size:
+                clamp(38px, 5vw, 62px);
+
+            line-height: 1.08;
+
+            letter-spacing: -0.035em;
+        }
+
+
+        .hero h1 span {
+
+            color: #365dcc;
+        }
+
+
+        .hero-description {
+
+            max-width: 610px;
+
+            margin:
+                22px 0 0;
+
+            color: #687286;
+
+            font-size: 17px;
+
+            line-height: 1.75;
+        }
+
+
+        .hero-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+
+        .primary-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                14px 22px;
+
+            border-radius: 11px;
+
+            background: #172033;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .secondary-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                14px 22px;
+
+            border:
+                1px solid #dce1ea;
+
+            border-radius: 11px;
+
+            background: #ffffff;
+
+            color: #172033;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .hero-note {
+
+            margin-top: 18px;
+
+            color: #9098a8;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           HERO VISUAL
+           ===================================================== */
+
+        .hero-visual {
+
+            position: relative;
+
+            min-height: 390px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .learning-card {
+
+            position: relative;
+
+            width:
+                min(100%, 390px);
+
+            padding: 25px;
+
+            border:
+                1px solid #e2e6ee;
+
+            border-radius: 24px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 25px 60px
+                rgba(
+                    20,
+                    30,
+                    50,
+                    0.10
+                );
+        }
+
+
+        .video-preview {
+
+            height: 205px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #202c43,
+                    #35476a
+                );
+        }
+
+
+        .play-button {
+
+            width: 65px;
+
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.96
+                );
+
+            color: #172033;
+
+            font-size: 22px;
+
+            padding-left: 4px;
+        }
+
+
+        .video-info {
+
+            padding-top: 18px;
+        }
+
+
+        .video-info span {
+
+            font-size: 12px;
+
+            color: #8a92a2;
+        }
+
+
+        .video-info strong {
+
+            display: block;
+
+            margin-top: 6px;
+
+            font-size: 18px;
+        }
+
+
+        .progress-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 16px;
+
+            font-size: 11px;
+
+            color: #8991a1;
+        }
+
+
+        .progress-bar {
+
+            height: 6px;
+
+            margin-top: 7px;
+
+            overflow: hidden;
+
+            border-radius: 10px;
+
+            background: #edf0f5;
+        }
+
+
+        .progress-bar span {
+
+            display: block;
+
+            width: 68%;
+
+            height: 100%;
+
+            background: #365dcc;
+        }
+
+
+        /* =====================================================
+           FEATURES
+           ===================================================== */
+
+        .features {
+
+            padding:
+                75px 20px;
+
+            background: #ffffff;
+
+            border-top:
+                1px solid #e8ebf1;
+
+            border-bottom:
+                1px solid #e8ebf1;
+        }
+
+
+        .section-container {
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+
+        .section-heading {
+
+            max-width: 650px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .section-heading p {
+
+            margin:
+                0 0 8px;
+
+            color: #365dcc;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing:
+                0.1em;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .section-heading h2 {
+
+            margin: 0;
+
+            font-size:
+                clamp(28px, 4vw, 40px);
+
+            line-height: 1.2;
+        }
+
+
+        .section-heading span {
+
+            display: block;
+
+            margin-top: 12px;
+
+            color: #747d8f;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+
+
+        .feature-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+
+        .feature-card {
+
+            padding: 28px;
+
+            border:
+                1px solid #e5e8ef;
+
+            border-radius: 18px;
+
+            background: #ffffff;
+        }
+
+
+        .feature-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+            border-radius: 13px;
+
+            background: #f0f3f8;
+
+            font-size: 21px;
+        }
+
+
+        .feature-card h3 {
+
+            margin: 0;
+
+            font-size: 18px;
+        }
+
+
+        .feature-card span {
+
+            display: block;
+
+            margin-top: 9px;
+
+            color: #7b8496;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           HOW IT WORKS
+           ===================================================== */
+
+        .how-section {
+
+            padding:
+                85px 20px;
+        }
+
+
+        .steps {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+
+        .step {
+
+            position: relative;
+
+            padding: 28px;
+
+            border:
+                1px solid #e4e8ef;
+
+            border-radius: 18px;
+
+            background: #ffffff;
+        }
+
+
+        .step-number {
+
+            width: 38px;
+
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+            border-radius: 10px;
+
+            background: #172033;
+
+            color: #ffffff;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .step h3 {
+
+            margin: 0;
+
+            font-size: 17px;
+        }
+
+
+        .step p {
+
+            margin:
+                9px 0 0;
+
+            color: #7b8496;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           CREDIT SECTION
+           ===================================================== */
+
+        .credit-section {
+
+            padding:
+                75px 20px;
+
+            background:
+                #172033;
+
+            color: #ffffff;
+        }
+
+
+        .credit-content {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(300px, 0.7fr);
+
+            gap: 60px;
+
+            align-items: center;
+        }
+
+
+        .credit-content h2 {
+
+            margin: 0;
+
+            font-size:
+                clamp(28px, 4vw, 42px);
+        }
+
+
+        .credit-content p {
+
+            max-width: 620px;
+
+            margin:
+                15px 0 0;
+
+            color: #b9c1d0;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+        }
+
+
+        .credit-points {
+
+            display: grid;
+
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+
+        .credit-point {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #d8dde7;
+
+            font-size: 13px;
+        }
+
+
+        .credit-point::before {
+
+            content: "✓";
+
+            width: 22px;
+
+            height: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
+        }
+
+
+        .credit-box {
+
+            padding: 28px;
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.12
+                );
+
+            border-radius: 20px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.06
+                );
+        }
+
+
+        .credit-box-label {
+
+            color: #aeb7c7;
+
+            font-size: 12px;
+        }
+
+
+        .credit-box-value {
+
+            margin-top: 10px;
+
+            font-size: 42px;
+
+            font-weight: 700;
+        }
+
+
+        .credit-box-note {
+
+            margin-top: 6px;
+
+            color: #aeb7c7;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           CTA
+           ===================================================== */
+
+        .cta {
+
+            padding:
+                90px 20px;
+
+            text-align: center;
+
+            background: #ffffff;
+        }
+
+
+        .cta h2 {
+
+            max-width: 650px;
+
+            margin:
+                0 auto;
+
+            font-size:
+                clamp(28px, 4vw, 42px);
+        }
+
+
+        .cta p {
+
+            max-width: 570px;
+
+            margin:
+                15px auto 0;
+
+            color: #778092;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+
+
+        .cta-button {
+
+            display: inline-flex;
+
+            margin-top: 25px;
+
+            padding:
+                14px 24px;
+
+            border-radius: 11px;
+
+            background: #172033;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .footer {
+
+            padding:
+                35px 20px;
+
+            border-top:
+                1px solid #e6e9ef;
+
+            background: #f7f8fb;
+        }
+
+
+        .footer-inner {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        .footer-brand {
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .footer-credit {
+
+            color: #8b93a3;
+
+            font-size: 12px;
+        }
+
+
+        .footer-links {
+
+            display: flex;
+
+            gap: 20px;
+        }
+
+
+        .footer-links a {
+
+            color: #727b8c;
+
+            text-decoration: none;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+
+            .hero {
+
+                grid-template-columns: 1fr;
+
+                padding-top: 65px;
+
+                gap: 45px;
+            }
+
+
+            .hero-visual {
+
+                min-height: 330px;
+            }
+
+
+            .feature-grid,
+            .steps {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .credit-content {
+
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .nav-inner {
+
+                min-height: 64px;
+            }
+
+
+            .brand-mark {
+
+                width: 38px;
+
+                height: 38px;
+            }
+
+
+            .brand-text span {
+
+                display: none;
+            }
+
+
+            .nav-buttons {
+
+                gap: 6px;
+            }
+
+
+            .nav-login,
+            .nav-register {
+
+                padding:
+                    9px 11px;
+
+                font-size: 12px;
+            }
+
+
+            .hero {
+
+                padding:
+                    55px 18px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 39px;
+            }
+
+
+            .hero-description {
+
+                font-size: 15px;
+            }
+
+
+            .learning-card {
+
+                padding: 17px;
+            }
+
+
+            .video-preview {
+
+                height: 175px;
+            }
+
+
+            .footer-inner {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+
+<nav class="home-nav">
+
+    <div class="nav-inner">
+
+
+        <div>
+            <a  href="index.html" 
+                style=" 
+                        text-decoration: none; 
+                        display: flex;
+                        align-items: center;
+                        "
+            >
+                <img src="images/logo.png" width="60px" alt="Logo">
+                <div 
+                    style="
+                            display: grid; 
+                            margin-left: 10px;
+                        "
+                >
+                    <strong>Tr. SUN</strong>
+                    <span>Education</span>
+                </div>
+            </a>
+        </div>
+
+
+
+        <!-- Authentication buttons -->
+
+        <div
+            class="nav-buttons"
+            id="navButtons"
+        >
+
+            <!-- Logged out -->
+
+            <a
+                href="login.html"
+                class="nav-login"
+                id="loginButton"
+            >
+                Login
+            </a>
+
+
+            <a
+                href="register.html"
+                class="nav-register"
+                id="registerButton"
+            >
+                Register
+            </a>
+
+
+            <!-- Logged in -->
+
+            <a
+                href="dashboard.html"
+                class="nav-login"
+                id="dashboardButton"
+                style="display: none;"
+            >
+                Go to Dashboard
+            </a>
+
+
+            <button
+                type="button"
+                class="nav-register"
+                id="logoutButton"
+                style="display: none;"
+            >
+                Logout
+            </button>
+
+        </div>
+
+
+    </div>
+
+</nav>
+
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-badge">
+            Online learning made simple
+        </div>
+
+
+        <h1>
+
+            Learn from anywhere.
+
+            <span>
+                Grow every day.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Access your classes, lessons and
+            learning videos online. Manage your
+            learning account and use credits for
+            your monthly subscription.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="register.html"
+                class="primary-button"
+                id="heroStartButton"
+            >
+                Start Learning →
+            </a>
+
+
+            <a
+                href="login.html"
+                class="secondary-button"
+                id="heroLoginButton"
+            >
+                Student Login
+            </a>
+
+        </div>
+
+
+        <div class="hero-note">
+
+            Create your account and begin your
+            online learning journey.
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- Hero visual -->
+
+    <div class="hero-visual">
+
+        <div class="learning-card">
+
+            <div class="video-preview">
+
+                <div class="play-button">
+                    ▶
+                </div>
+
+            </div>
+
+
+            <div class="video-info">
+
+                <span>
+                    ONLINE LESSON
+                </span>
+
+
+                <strong>
+                    Your Learning Classroom
+                </strong>
+
+
+                <div class="progress-row">
+
+                    <span>
+                        Learning progress
+                    </span>
+
+                    <span>
+                        68%
+                    </span>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ============================================================
+     FEATURES
+     ============================================================ -->
+
+<section
+    id="features"
+    class="features"
+>
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <p>
+                Platform
+            </p>
+
+
+            <h2>
+                Everything you need to learn online.
+            </h2>
+
+
+            <span>
+
+                A simple learning environment designed
+                to help students access their classes
+                and manage their accounts easily.
+
+            </span>
+
+        </div>
+
+
+
+        <div class="feature-grid">
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🎥
+                </div>
+
+
+                <h3>
+                    Video Learning
+                </h3>
+
+
+                <span>
+
+                    Watch your lessons online and
+                    learn at your own pace from
+                    anywhere.
+
+                </span>
+
+            </article>
+
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    📚
+                </div>
+
+
+                <h3>
+                    Organized Classes
+                </h3>
+
+
+                <span>
+
+                    Find your available classes,
+                    lessons and learning materials
+                    in one place.
+
+                </span>
+
+            </article>
+
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    💳
+                </div>
+
+
+                <h3>
+                    Credit System
+                </h3>
+
+
+                <span>
+
+                    Top up your account and use
+                    credits for your monthly
+                    subscription.
+
+                </span>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+
+<section
+    id="how"
+    class="how-section"
+>
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <p>
+                Simple Process
+            </p>
+
+
+            <h2>
+                Start learning in three steps.
+            </h2>
+
+        </div>
+
+
+
+        <div class="steps">
+
+
+            <article class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+
+                <h3>
+                    Create an account
+                </h3>
+
+
+                <p>
+
+                    Register as a student and
+                    log in to your personal
+                    learning dashboard.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+
+                <h3>
+                    Add credits
+                </h3>
+
+
+                <p>
+
+                    Top up your account by
+                    submitting your payment
+                    information and receipt.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+
+                <h3>
+                    Attend your classes
+                </h3>
+
+
+                <p>
+
+                    Use your available credits
+                    for your subscription and
+                    access your learning content.
+
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ============================================================
+     CREDIT SYSTEM
+     ============================================================ -->
+
+<section
+    id="credits"
+    class="credit-section"
+>
+
+    <div class="credit-content">
+
+
+        <div>
+
+            <h2>
+                Simple credit-based learning.
+            </h2>
+
+
+            <p>
+
+                Your account uses credits for
+                monthly subscription fees. Top up
+                your balance whenever you need and
+                keep your learning account ready.
+
+            </p>
+
+
+            <div class="credit-points">
+
+                <div class="credit-point">
+                    Easy account balance management
+                </div>
+
+
+                <div class="credit-point">
+                    Payment receipt verification
+                </div>
+
+
+                <div class="credit-point">
+                    Credits stored securely with your account
+                </div>
+
+
+                <div class="credit-point">
+                    Use credits for monthly subscriptions
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="credit-box">
+
+            <div class="credit-box-label">
+                CREDIT VALUE
+            </div>
+
+
+            <div class="credit-box-value">
+                1 MMK
+            </div>
+
+
+            <div class="credit-box-note">
+                = 1 credit
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ============================================================
+     CTA
+     ============================================================ -->
+
+<section class="cta">
+
+    <h2>
+        Ready to start learning?
+    </h2>
+
+
+    <p>
+
+        Create your student account and
+        access your online learning
+        dashboard.
+
+    </p>
+
+
+    <a
+        href="register.html"
+        class="cta-button"
+        id="ctaButton"
+    >
+        Create Student Account →
+    </a>
+
+</section>
+
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+
+        <div>
+
+            <div class="footer-brand">
+                Online Learning
+            </div>
+
+
+            <div class="footer-credit">
+                Created by Tr. Sun
+            </div>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a
+                href="login.html"
+                id="footerLogin"
+            >
+                Login
+            </a>
+
+
+            <a
+                href="register.html"
+                id="footerRegister"
+            >
+                Register
+            </a>
+
+
+            <a
+                href="dashboard.html"
+                id="footerDashboard"
+                style="display: none;"
+            >
+                Dashboard
+            </a>
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
+
+<!-- ============================================================
+     EXISTING APPLICATION JAVASCRIPT
+     ============================================================ -->
+
+<script src="js/config.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/auth.js"></script>
+
+
+
+<script>
+
+/* ============================================================
+   HOME PAGE AUTHENTICATION NAVIGATION
+   Created by Tr. Sun
+   ============================================================ */
+
+
+/*
+ * Change navigation depending on login status.
+ */
+
+async function updateHomeNavigation() {
+
+    const loginButton =
+        document.getElementById(
+            'loginButton'
+        );
+
+    const registerButton =
+        document.getElementById(
+            'registerButton'
+        );
+
+    const dashboardButton =
+        document.getElementById(
+            'dashboardButton'
+        );
+
+    const logoutButton =
+        document.getElementById(
+            'logoutButton'
+        );
+
+
+    const heroStartButton =
+        document.getElementById(
+            'heroStartButton'
+        );
+
+    const heroLoginButton =
+        document.getElementById(
+            'heroLoginButton'
+        );
+
+    const ctaButton =
+        document.getElementById(
+            'ctaButton'
+        );
+
+    const footerLogin =
+        document.getElementById(
+            'footerLogin'
+        );
+
+    const footerRegister =
+        document.getElementById(
+            'footerRegister'
+        );
+
+    const footerDashboard =
+        document.getElementById(
+            'footerDashboard'
+        );
+
+
+    /*
+     * ----------------------------------------------------------
+     * Default state: LOGGED OUT
+     * ----------------------------------------------------------
+     */
+
+    loginButton.style.display =
+        'inline-flex';
+
+    registerButton.style.display =
+        'inline-flex';
+
+    dashboardButton.style.display =
+        'none';
+
+    logoutButton.style.display =
+        'none';
+
+
+    heroStartButton.href =
+        'register.html';
+
+    heroStartButton.textContent =
+        'Start Learning →';
+
+
+    heroLoginButton.href =
+        'login.html';
+
+    heroLoginButton.textContent =
+        'Student Login';
+
+
+    ctaButton.href =
+        'register.html';
+
+    ctaButton.textContent =
+        'Create Student Account →';
+
+
+    footerLogin.style.display =
+        '';
+
+    footerRegister.style.display =
+        '';
+
+    footerDashboard.style.display =
+        'none';
+
+
+
+    /*
+     * ----------------------------------------------------------
+     * Check current user
+     * ----------------------------------------------------------
+     */
+
+    try {
+
+        let user = null;
+
+
+        /*
+         * Use the authentication function
+         * already provided by auth.js.
+         */
+
+        if (
+            typeof getCurrentUser ===
+            'function'
+        ) {
+
+            user =
+                await getCurrentUser();
+
+        }
+
+
+        /*
+         * Some auth implementations
+         * return null when logged out.
+         */
+
+        if (!user) {
+
+            return;
+
+        }
+
+
+
+        /*
+         * ------------------------------------------------------
+         * LOGGED-IN STATE
+         * ------------------------------------------------------
+         */
+
+
+        loginButton.style.display =
+            'none';
+
+        registerButton.style.display =
+            'none';
+
+
+        dashboardButton.style.display =
+            'inline-flex';
+
+        logoutButton.style.display =
+            'inline-flex';
+
+
+
+        /*
+         * Hero buttons
+         */
+
+        heroStartButton.href =
+            'dashboard.html';
+
+        heroStartButton.textContent =
+            'Go to Dashboard →';
+
+
+        heroLoginButton.href =
+            'dashboard.html';
+
+        heroLoginButton.textContent =
+            'Open Dashboard';
+
+
+
+        /*
+         * CTA
+         */
+
+        ctaButton.href =
+            'dashboard.html';
+
+        ctaButton.textContent =
+            'Go to Dashboard →';
+
+
+
+        /*
+         * Footer
+         */
+
+        footerLogin.style.display =
+            'none';
+
+        footerRegister.style.display =
+            'none';
+
+        footerDashboard.style.display =
+            '';
+
+    } catch (error) {
+
+        /*
+         * If authentication check fails,
+         * keep the logged-out navigation.
+         */
+
+        console.error(
+            'Home authentication check:',
+            error
+        );
+
+    }
+
+}
+
+
+
+/* ============================================================
+   LOGOUT
+   ============================================================ */
+
+async function logoutFromHome() {
+
+    try {
+
+        /*
+         * Use the logout function from
+         * auth.js if it exists.
+         */
+
+        if (
+            typeof logout ===
+            'function'
+        ) {
+
+            await logout();
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            'Logout error:',
+            error
+        );
+
+    }
+
+
+    /*
+     * Return to home.
+     */
+
+    window.location.href =
+        'index.html';
+
+}
+
+
+
+/* ============================================================
+   CONNECT LOGOUT BUTTON
+   ============================================================ */
+
+document
+    .getElementById(
+        'logoutButton'
+    )
+    .addEventListener(
+        'click',
+        logoutFromHome
+    );
+
+
+
+/* ============================================================
+   INITIALIZE
+   ============================================================ */
+
+updateHomeNavigation();
+
+</script>
+
+
+</body>
+
+</html>

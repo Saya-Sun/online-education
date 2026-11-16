@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Admin Dashboard | Student Learning
+    </title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* ============================================================
+           Navigation
+        ============================================================ */
+
+
+        .logout-button {
+            border: 0;
+            border-radius: 9px;
+
+            padding: 9px 15px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.15s ease,
+                background 0.15s ease;
+        }
+
+
+        .logout-button {
+            background: #f1f3f6;
+            color: #505866;
+        }
+
+
+        .logout-button:hover {
+            background: #e7e9ed;
+            transform: translateY(-1px);
+        }
+
+
+
+
+
+        /* =====================================================
+           ADMIN DASHBOARD
+           Created by Tr. Sun
+           ===================================================== */
+
+        .admin-dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+
+        .admin-heading p {
+            margin: 0 0 6px;
+            font-size: 14px;
+            opacity: 0.65;
+        }
+
+
+        .admin-heading h1 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+
+        .admin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: rgba(0, 150, 100, 0.10);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        .admin-badge::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #18a566;
+        }
+
+
+        /* =====================================================
+           STATISTICS
+           ===================================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+
+        .stat-card {
+            position: relative;
+            padding: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 18px;
+            background: #ffffff;
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .stat-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 14px;
+            opacity: 0.65;
+        }
+
+
+        .stat-value {
+            display: block;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+
+        .stat-description {
+            display: block;
+            margin-top: 10px;
+            font-size: 13px;
+            opacity: 0.55;
+        }
+
+
+        /* =====================================================
+           MAIN GRID
+           ===================================================== */
+
+        .admin-content-grid {
+            display: grid;
+            grid-template-columns:
+                minmax(0, 2fr) minmax(280px, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .admin-card {
+            padding: 26px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            background: #ffffff;
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .admin-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+
+        .admin-card-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+
+        .admin-card-header p {
+            margin: 4px 0 0;
+            font-size: 13px;
+            opacity: 0.55;
+        }
+
+
+        /* =====================================================
+           PAYMENT REQUEST
+           ===================================================== */
+
+        .payment-request {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            padding: 18px;
+
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            border-radius: 14px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .payment-request:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+
+
+        .payment-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        .payment-info span {
+            font-size: 13px;
+            opacity: 0.55;
+        }
+
+
+        .payment-status {
+            padding: 7px 11px;
+            border-radius: 999px;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            background:
+                rgba(230, 160, 0, 0.12);
+        }
+
+
+        /* =====================================================
+           QUICK ACTIONS
+           ===================================================== */
+
+        .quick-actions {
+            display: grid;
+            gap: 12px;
+        }
+
+
+        .quick-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            padding: 17px 18px;
+
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            border-radius: 14px;
+
+            text-decoration: none;
+            color: inherit;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .quick-action:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 0, 0, 0.025);
+        }
+
+
+        .quick-action strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+
+        .quick-action span {
+            font-size: 13px;
+            opacity: 0.55;
+        }
+
+
+        .quick-arrow {
+            font-size: 20px;
+            opacity: 0.45;
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .empty-state {
+            padding: 35px 20px;
+            text-align: center;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.025);
+        }
+
+
+        .empty-state strong {
+            display: block;
+            margin-bottom: 7px;
+        }
+
+
+        .empty-state span {
+            font-size: 13px;
+            opacity: 0.55;
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        .admin-error {
+            display: none;
+
+            margin-bottom: 20px;
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(210, 50, 50, 0.08);
+
+            color:
+                #a52b2b;
+
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           LOADING
+           ===================================================== */
+
+        .loading {
+            opacity: 0.55;
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .admin-content-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .admin-dashboard {
+                padding:
+                    24px 15px 45px;
+            }
+
+
+            .admin-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+
+            .admin-heading h1 {
+                font-size: 27px;
+            }
+
+
+            .stat-card {
+                padding: 20px;
+            }
+
+
+            .admin-card {
+                padding: 20px;
+            }
+
+
+            .payment-request {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         TOP BAR
+         ===================================================== -->
+
+    <header class="topbar">
+
+        <div class="topbar-brand">
+            Admin Panel
+        </div>
+
+
+        <button class="logout-button" type="button" onclick="logout()">
+            Logout
+        </button>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN ADMIN DASHBOARD
+         ===================================================== -->
+
+    <main class="admin-dashboard">
+
+
+        <!-- HEADER -->
+
+        <section class="admin-header">
+
+            <div class="admin-heading">
+
+                <p>
+                    Administrator Dashboard
+                </p>
+
+                <h1 id="adminName">
+                    Loading...
+                </h1>
+
+            </div>
+
+
+            <div class="admin-badge">
+                Administrator
+            </div>
+
+        </section>
+
+
+
+        <!-- ERROR -->
+
+        <div id="adminError" class="admin-error"></div>
+
+
+
+        <!-- =================================================
+             STATISTICS
+             ================================================= -->
+
+        <section class="stats-grid">
+
+
+            <!-- STUDENTS -->
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Students
+                </span>
+
+                <strong id="studentCount" class="stat-value loading">
+                    —
+                </strong>
+
+                <span class="stat-description">
+                    Registered student accounts
+                </span>
+
+            </div>
+
+
+            <!-- PENDING PAYMENTS -->
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Pending Payments
+                </span>
+
+                <strong id="pendingPaymentCount" class="stat-value loading">
+                    —
+                </strong>
+
+                <span class="stat-description">
+                    Payments waiting for review
+                </span>
+
+            </div>
+
+
+            <!-- ACTIVE SUBSCRIPTIONS -->
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    Active Subscriptions
+                </span>
+
+                <strong id="activeSubscriptionCount" class="stat-value loading">
+                    —
+                </strong>
+
+                <span class="stat-description">
+                    Currently active subscriptions
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CONTENT
+             ================================================= -->
+
+        <section class="admin-content-grid">
+
+
+            <!-- =================================================
+                 PAYMENT REQUESTS
+                 ================================================= -->
+
+            <div class="admin-card">
+
+                <div class="admin-card-header">
+
+                    <div>
+
+                        <h2>
+                            Payment Requests
+                        </h2>
+
+                        <p>
+                            Review recent student top-ups
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="paymentPreview">
+
+                    <div class="empty-state">
+
+                        <strong>
+                            Loading payments...
+                        </strong>
+
+                        <span>
+                            Please wait.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+                 ================================================= -->
+
+            <div class="admin-card">
+
+                <div class="admin-card-header">
+
+                    <div>
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                        <p>
+                            Administration tools
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+
+                    <a href="admin-payments.html" class="quick-action">
+
+                        <div>
+
+                            <strong>
+                                Payment Requests
+                            </strong>
+
+                            <span>
+                                Review and approve payments
+                            </span>
+
+                        </div>
+
+                        <span class="quick-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a href="admin-students.html" class="quick-action">
+
+                        <div>
+
+                            <strong>
+                                Students
+                            </strong>
+
+                            <span>
+                                View student accounts
+                            </span>
+
+                        </div>
+
+                        <span class="quick-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a href="admin-subscriptions.html" class="quick-action">
+
+                        <div>
+
+                            <strong>
+                                Subscriptions
+                            </strong>
+
+                            <span>
+                                Manage student subscriptions
+                            </span>
+
+                        </div>
+
+                        <span class="quick-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a href="admin-courses.html" class="quick-action">
+
+                        <div>
+
+                            <strong>
+                                Courses
+                            </strong>
+
+                            <span>
+                                Manage Courses
+                            </span>
+
+                        </div>
+
+                        <span class="quick-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script src="js/config.js"></script>
+
+    <script src="js/api.js"></script>
+
+    <script src="js/auth.js"></script>
+
+
+    <script>
+
+        /* =====================================================
+           ADMIN DASHBOARD
+           Created by Tr. Sun
+           ===================================================== */
+
+
+        let currentAdmin = null;
+
+
+
+        /* =====================================================
+           SHOW ERROR
+           ===================================================== */
+
+        function showAdminError(message) {
+
+            const error =
+                document.getElementById(
+                    'adminError'
+                );
+
+
+            error.textContent =
+                message;
+
+
+            error.style.display =
+                'block';
+
+        }
+
+
+
+        /* =====================================================
+           SET STATISTIC
+           ===================================================== */
+
+        function setStat(
+            id,
+            value
+        ) {
+
+            const element =
+                document.getElementById(id);
+
+
+            element.textContent =
+                Number(value || 0)
+                    .toLocaleString();
+
+
+            element.classList.remove(
+                'loading'
+            );
+
+        }
+
+
+
+        /* =====================================================
+           LOAD PENDING PAYMENTS
+           ===================================================== */
+
+        async function loadPendingPayments() {
+
+            const container =
+                document.getElementById(
+                    'paymentPreview'
+                );
+
+
+            try {
+
+                const result =
+                    await apiRequest({
+
+                        action:
+                            'getPendingPayments',
+
+                        token:
+                            getAuthToken()
+
+                    });
+
+
+                if (
+                    !result ||
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result?.message ||
+                        'Unable to load payments.'
+                    );
+
+                }
+
+
+                const payments =
+                    result.payments || [];
+
+
+                setStat(
+                    'pendingPaymentCount',
+                    payments.length
+                );
+
+
+                if (
+                    payments.length === 0
+                ) {
+
+                    container.innerHTML = `
+
+                        <div class="empty-state">
+
+                            <strong>
+                                No pending payments
+                            </strong>
+
+                            <span>
+                                All payment requests have been reviewed.
+                            </span>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                /*
+                 * Show only the first 3 requests.
+                 */
+
+                const preview =
+                    payments.slice(0, 3);
+
+
+                container.innerHTML =
+                    preview.map(
+                        function (payment) {
+
+                            return `
+
+                                <div
+                                    class="payment-request"
+                                >
+
+                                    <div
+                                        class="payment-info"
+                                    >
+
+                                        <strong>
+                                            ${escapeHtml(
+                                payment.studentName ||
+                                payment.studentId
+                            )
+                                }
+                                        </strong>
+
+                                        <span>
+                                            ${Number(
+                                    payment.amount || 0
+                                ).toLocaleString()
+                                }
+                                            MMK
+                                            ·
+                                            ${escapeHtml(
+                                    payment.paymentMethod ||
+                                    ''
+                                )
+                                }
+                                        </span>
+
+                                    </div>
+
+
+                                    <span
+                                        class="payment-status"
+                                    >
+                                        PENDING
+                                    </span>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                        .join('');
+
+
+            } catch (error) {
+
+                console.error(
+                    'Payment loading error:',
+                    error
+                );
+
+
+                document.getElementById(
+                    'pendingPaymentCount'
+                ).textContent = '—';
+
+
+                container.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <strong>
+                            Unable to load payments
+                        </strong>
+
+                        <span>
+                            Open Payment Requests to try again.
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           LOAD ADMIN DATA
+         ===================================================== */
+
+        async function initializeAdmin() {
+
+            const adminName =
+                document.getElementById('adminName');
+
+            try {
+
+                adminName.textContent =
+                    'Checking login...';
+
+
+                /*
+                * Wait for login, but never forever.
+                */
+
+                const user =
+                    await Promise.race([
+
+                        requireLogin(),
+
+                        new Promise(function (_, reject) {
+
+                            setTimeout(function () {
+
+                                reject(
+                                    new Error(
+                                        'Login check timed out. Please refresh the page and login again.'
+                                    )
+                                );
+
+                            }, 10000);
+
+                        })
+
+                    ]);
+
+
+                if (!user) {
+                    return;
+                }
+
+
+                /*
+                * Verify administrator.
+                */
+
+                if (
+                    String(user.role || '')
+                        .toUpperCase() !== 'ADMIN'
+                ) {
+
+                    window.location.href =
+                        'dashboard.html';
+
+                    return;
+
+                }
+
+
+                currentAdmin =
+                    user;
+
+
+                adminName.textContent =
+                    user.name ||
+                    'Administrator';
+
+
+                /*
+                * Load dashboard data separately.
+                */
+
+                await loadAdminStats();
+
+                await loadPendingPayments();
+
+
+            } catch (error) {
+
+                console.error(
+                    'Admin initialization error:',
+                    error
+                );
+
+
+                adminName.textContent =
+                    'Unable to load';
+
+
+                showAdminError(
+                    error.message ||
+                    'Unable to initialize administrator dashboard.'
+                );
+
+            }
+
+        }
+
+
+
+        async function loadAdminStats() {
+
+            try {
+
+                const result =
+                    await apiRequest({
+
+                        action:
+                            'getAdminStats',
+
+                        token:
+                            getAuthToken()
+
+                    });
+
+
+                if (
+                    !result ||
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result?.message ||
+                        'Unable to load dashboard statistics.'
+                    );
+
+                }
+
+
+                const stats =
+                    result.stats || {};
+
+
+                setStat(
+                    'studentCount',
+                    stats.studentCount
+                );
+
+
+                setStat(
+                    'pendingPaymentCount',
+                    stats.pendingPaymentCount
+                );
+
+
+                setStat(
+                    'activeSubscriptionCount',
+                    stats.activeSubscriptionCount
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    'Admin statistics error:',
+                    error
+                );
+
+
+                showAdminError(
+                    error.message ||
+                    'Unable to load dashboard statistics.'
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           ESCAPE HTML
+           ===================================================== */
+
+        function escapeHtml(value) {
+
+            return String(value || '')
+                .replace(
+                    /&/g,
+                    '&amp;'
+                )
+                .replace(
+                    /</g,
+                    '&lt;'
+                )
+                .replace(
+                    />/g,
+                    '&gt;'
+                )
+                .replace(
+                    /"/g,
+                    '&quot;'
+                )
+                .replace(
+                    /'/g,
+                    '&#039;'
+                );
+
+        }
+
+
+
+        /* =====================================================
+           START
+           ===================================================== */
+
+        initializeAdmin();
+
+    </script>
+
+
+</body>
+
+</html>
